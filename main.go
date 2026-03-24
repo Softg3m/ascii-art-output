@@ -70,7 +70,10 @@ func GenerateAscii(text string, banner string) string {
 	words := strings.Split(text, "\\n")
 
 	for _, word := range words {
-		for i := 0; i < 8; i++ {
+		// if word == ""{
+		// 	fmt.Println()
+		// }
+		for i := 1; i <= 8; i++ {
 			for _, char := range word {
 				asciiIndex := int(char) - 32
 				start := asciiIndex * 9
