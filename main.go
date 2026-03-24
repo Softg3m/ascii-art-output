@@ -13,7 +13,7 @@ func main() {
 		Usage()
 		return
 	}
-	
+
 	// go run . --output=banner.txt "hello" standard
 	if strings.HasPrefix(args[0], "--output=") {
 		fileName := strings.TrimPrefix(args[0], "--output=")
@@ -56,37 +56,4 @@ func Usage() {
 	fmt.Println("Usage: go run . [OPTION] [STRING] [BANNER]")
 	fmt.Println()
 	fmt.Println("EX: go run . --output=<fileName.txt> something standard")
-}
-
-func GenerateAscii(text string, banner string) string {
-	data, err := os.ReadFile(banner + ".txt")
-	if err != nil {
-		return "Error reading banner file\n"
-	}
-
-	lines := strings.Split(string(data), "\n")
-	result := ""
-
-	words := strings.Split(text, "\\n")
-
-	for _, word := range words {
-		// if word == ""{
-		// 	fmt.Println()
-		// }
-		for i := 1; i <= 8; i++ {
-			for _, char := range word {
-				asciiIndex := int(char) - 32
-				start := asciiIndex * 9
-
-				if start+i >= len(lines) {
-					continue
-				}
-
-				result += lines[start+i]
-			}
-			result += "\n"
-		}
-	}
-
-	return result
 }
