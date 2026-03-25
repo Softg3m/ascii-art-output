@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -16,12 +17,26 @@ func TestGenerateAscii_NotEmpty(t *testing.T) {
 }
 
 // Test invalid banner file
-
 func TestGenerateAscii_InvalidBanner(t *testing.T) {
-	result := GenerateAscii("A", "unknownbanner")
+	// Save original stdout
+	oldStdout := os.Stdout
 
-	if !strings.Contains(result, "Error reading banner file") {
-		t.Error("Expected error message for invalid banner")
+	// Create pipe
+	r, w, _ := os.Pipe()
+	os.Stdout = w
+
+	// Run function
+	GenerateAscii("A", "unknownbanner")
+
+	// Restore stdout
+	w.Close()
+	os.Stdout = oldStdout
+
+	// Read captured output
+	output, _ := io.ReadAll(r)
+
+	if !strings.Contains(string(output), "Error reading banner file") {
+		t.Errorf("Expected error message, got: %s", string(output))
 	}
 }
 
