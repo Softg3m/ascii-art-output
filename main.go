@@ -18,7 +18,7 @@ func main() {
 	if strings.HasPrefix(args[0], "--output=") {
 		fileName := strings.TrimPrefix(args[0], "--output=")
 
-		if fileName == "" || !strings.HasSuffix(fileName, ".txt") || len(args) < 2 {
+		if fileName == "" || !strings.HasSuffix(fileName, ".txt") || len(args) < 2 || len(args) > 3 {
 			Usage()
 			return
 		}
@@ -26,7 +26,7 @@ func main() {
 		text := args[1]
 		banner := "standard"
 
-		if len(args) >= 3 {
+		if len(args) == 3 {
 			banner = args[2]
 		}
 
