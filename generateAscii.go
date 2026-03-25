@@ -1,14 +1,15 @@
 package main
 
 import (
-	"strings"
+	"fmt"
 	"os"
+	"strings"
 )
 
 func GenerateAscii(text string, banner string) string {
 	data, err := os.ReadFile(banner + ".txt")
 	if err != nil {
-		return "Error reading banner file\n"
+		fmt.Println("Error reading banner file", err)
 	}
 
 	lines := strings.Split(string(data), "\n")
